@@ -1,33 +1,26 @@
-Checkpoint 0 Writeup
-====================
+My name: 李明扬
 
-My name: [your name here]
+My Student number : 502024330026
 
-My SUNet ID: [your sunetid here]
+This lab took me about 2 hours to do. I did attend the lab session.
 
-I collaborated with: [list sunetids here]
 
-I would like to credit/thank these classmates for their help: [list sunetids here]
+#### 1. Program Structure and Design:
 
-This lab took me about [n] hours to do. I [did/did not] attend the lab session.
+- 本实验第一部分的主要结构是建立一个TCPsocket类的socket，并用其与特定的网址以HTTP的方式建立连接。将报文用字符串的形式通过之前建立的socket发送到服务器端，等待响应后读出socket中返回的网站内容，直到到达eof。
 
-My secret code from section 2.1 was: [code here]
+- 本实验第二部分的主要结构是完善ByteStream类，以字节流的形式实现其读写的过程。通过维护一个字符串以及其容量，在读写的时候分别对其进行操作以完成。
 
-I was surprised by or edified to learn that: [describe]
 
-Describe ByteStream implementation. [Describe data structures and
-approach taken. Describe alternative designs considered or tested.
-Describe benefits and weaknesses of your design compared with
-alternatives -- perhaps in terms of simplicity/complexity, risk of
-bugs, asymptotic performance, empirical performance, required
-implementation time and difficulty, and other factors. Include any
-measurements if applicable.]
+#### 2. Implementation Challenges:
 
-- Optional: I had unexpected difficulty with: [describe]
+- 本次实验最大的挑战在于手册的阅读，需要理清库函数中类的继承关系，掌握类方法的用法。并且需要理解linux系统所提供的关于网络编程的API，了解它们是怎样被封装到所提供的类之中的。
 
-- Optional: I think you could make this lab better by: [describe]
+- 另一个挑战是对于ByteStream容量的理解，需要正确理解容量的含义才能写出正确的代码。
 
-- Optional: I'm not sure about: [describe]
+#### 3. Remaining Bugs:
 
-- Optional: I contributed a new test case that catches a plausible bug
-  not otherwise caught: [provide Pull Request URL]
+- 暂时尚未找到bug。
+
+测试结果如下图![avatar](pictures/result.png)
+

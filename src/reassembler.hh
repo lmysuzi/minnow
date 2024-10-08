@@ -1,12 +1,16 @@
 #pragma once
 
 #include "byte_stream.hh"
+#include <deque>
+#include <map>
 
 class Reassembler
 {
 public:
   // Construct Reassembler to write into given ByteStream.
-  explicit Reassembler( ByteStream&& output ) : output_( std::move( output ) ) {}
+  explicit Reassembler( ByteStream&& output )
+    : output_( std::move( output ) ), unassembled_buffer_(), existing_buffer_()
+  {}
 
   /*
    * Insert a new substring to be reassembled into a ByteStream.
@@ -42,4 +46,14 @@ public:
 
 private:
   ByteStream output_; // the Reassembler writes to this ByteStream
+
+  uint64_t unassembled_bytes_ = 0;
+  uint64_t current_index_ = 0;
+  uint64_t eof_index_ = 0;
+  bool eof_ = false;
+
+  // 存储未组装好的字符集
+  std::deque<char> unassembled_buffer_;
+  // 存储buffer中某值是否存在
+  std::deque<bool> existing_buffer_;
 };
