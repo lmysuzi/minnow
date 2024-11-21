@@ -1,6 +1,8 @@
 #pragma once
 
+#include <map>
 #include <queue>
+#include <unordered_map>
 
 #include "address.hh"
 #include "ethernet_frame.hh"
@@ -81,4 +83,35 @@ private:
 
   // Datagrams that have been received
   std::queue<InternetDatagram> datagrams_received_ {};
+
+  // Time passed;
+  size_t time_passed_ = 0;
+
+  // The time that mapping should exist
+  static constexpr size_t TIME_EXIST = 30000;
+
+  // used to store the time and ethernet address
+  struct EthernetInfo
+  {
+    EthernetAddress addr;
+    size_t coming_time;
+  };
+
+  // mapping between next-hop address and Ethernet addresses
+  std::unordered_map<uint32_t, EthernetInfo> address_mapping_ {};
+
+  // mapping between ip and internet datagram, which is about to be sent
+  std::multimap<uint32_t, InternetDatagram> datagram_mapping_ {};
+
+  // mapping from ARP sent and its sending time
+  std::unordered_map<uint32_t, size_t> arp_time_mapping_ {};
+
+  // Check the existence of mapping
+  bool mapping_existing( const uint32_t next_hop_ip );
+
+  //! \brief Create an Ethernet frame with type ipv4 and send it
+  void send_ipv4( const InternetDatagram& dgram, const EthernetAddress& target_ethernet_address );
+
+  //! \brief Send the ARP
+  void send_arp( const uint32_t next_hop_ip, const EthernetAddress& target_ethernet_address );
 };
