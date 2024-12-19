@@ -20,11 +20,57 @@ void Router::add_route( const uint32_t route_prefix,
        << static_cast<int>( prefix_length ) << " => " << ( next_hop.has_value() ? next_hop->ip() : "(direct)" )
        << " on interface " << interface_num << "\n";
 
-  // Your code here.
+  _routing_table.push_back( RouteInfo { route_prefix, prefix_length, next_hop, interface_num } );
 }
 
 // Go through all the interfaces, and route every incoming datagram to its proper outgoing interface.
 void Router::route()
 {
-  // Your code here.
+  for ( auto& interface : _interfaces ) {
+    auto& queue = interface->datagrams_received();
+    while ( not queue.empty() ) {
+      route_one_datagram( queue.front() );
+      queue.pop();
+    }
+  }
+}
+
+std::optional<Router::RouteInfo> Router::match( InternetDatagram& dgram )
+{
+  optional<RouteInfo> ans = nullopt;
+  uint32_t dst = dgram.header.dst;
+  uint8_t max_prefix_length = 0;
+
+  for ( auto& route : _routing_table ) {
+    if ( ( route.prefix_length == 0 )
+         || ( ( route.route_prefix >> ( 32 - route.prefix_length ) )
+              == ( dst >> ( 32 - route.prefix_length ) ) ) ) {
+      if ( route.route_prefix >= max_prefix_length ) {
+        ans = route;
+        max_prefix_length = route.route_prefix;
+      }
+    }
+  }
+
+  return ans;
+}
+
+void Router::route_one_datagram( InternetDatagram& dgram )
+{
+  auto optional_route = match( dgram );
+  if ( !optional_route.has_value() )
+    return;
+  if ( dgram.header.ttl <= 1 )
+    return;
+
+  dgram.header.ttl--;
+  dgram.header.len = static_cast<uint64_t>( dgram.header.hlen ) * 4 + dgram.payload.back().size();
+  dgram.header.compute_checksum();
+
+  size_t interface_num = optional_route.value().interface_num;
+  if ( optional_route.value().next_hop.has_value() ) {
+    _interfaces[interface_num]->send_datagram( dgram, optional_route.value().next_hop.value() );
+  } else {
+    _interfaces[interface_num]->send_datagram( dgram, Address::from_ipv4_numeric( dgram.header.dst ) );
+  }
 }

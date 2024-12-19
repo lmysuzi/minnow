@@ -35,8 +35,8 @@ void NetworkInterface::send_datagram( const InternetDatagram& dgram, const Addre
     if ( arp_time_mapping_.find( next_hop_ip ) == arp_time_mapping_.end()
          || arp_time_mapping_[next_hop_ip] + 5000 < time_passed_ ) {
       arp_time_mapping_[next_hop_ip] = time_passed_;
-      send_arp( next_hop_ip, ETHERNET_BROADCAST );
       datagram_mapping_.insert( pair<uint32_t, InternetDatagram>( next_hop_ip, dgram ) );
+      send_arp( next_hop_ip, ETHERNET_BROADCAST );
     }
   }
 }
