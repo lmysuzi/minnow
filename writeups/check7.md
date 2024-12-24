@@ -1,43 +1,20 @@
-Checkpoint 7 Writeup
-====================
+My name: 李明扬
 
-My name: [your name here]
+My Student number : 502024330026
 
-My SUNet ID: [your sunetid here]
+This lab took me about 1 hours to do. I did attend the lab session.
 
-I collaborated with: [list sunetids here]
 
-I would like to thank/reward these classmates for their help: [list sunetids here]
+#### Sole portion
+- 成功了，示例如图![sole_conversation](pictures/check7/sole_conversation.png)
+- 成功了，示例如图![sole_transfer](pictures/check7/sole_transfer.png)![checksum](pictures/check7/checksum.png)
+- 无需改动任何代码。
 
-This checkpoint took me about [n] hours to do. I [did/did not] attend the lab session.
+#### Group portion
+- 我的lab partner是李帅，学号502024330027。
+- 成功了，示例如图![p_c1](pictures/check7/p_c1.png)![p_c2](pictures/check7/p_c2.png)
+- 成功了，示例如图![partner_transfer](pictures/check7/partner_transfer1.png)![partner_transfer](pictures/check7/partner_transfer2.png)![p_sum1](pictures/check7/p_sum1.png)![p_sum2](pictures/check7/p_sum2.png)
+- 无需改动任何代码
 
-Solo portion:
-
-- Did your implementation successfully start and end a conversation with another copy of itself? [y/n]
-
-- Did it successfully transfer a one-megabyte file, with contents identical upon receipt? [y/n]
-
-- Please describe what code changes, if any, were necessary to pass these steps:
-
-Group portion:
-
-- Who is your lab partner (and what is their SUNet ID, e.g. "winstein"?
-
-- Did your implementations successfully start and end a conversation with each other (with each implementation acting as ``client'' or as ``server'')?
-
-- Did you successfully transfer a one-megabyte file between your two
-  implementations, with contents identical upon receipt?
-
-- Please describe what code changes, if any, were necessary to pass
-  these steps, either by you or your lab partner.
-
-Creative portion (if you did anything for our creative challenge,
-                  please boast about it!)
-
-- Optional: I had unexpected difficulty with: [describe]
-
-- Optional: I think you could make this lab better by: [describe]
-
-- Optional: I was surprised by: [describe]
-
-- Optional: I'm not sure about: [describe]
+#### Creative portion
+- 无。
